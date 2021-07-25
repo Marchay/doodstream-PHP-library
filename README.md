@@ -20,7 +20,7 @@ Minimum PHP version : 5.5
   $ds = new DoodstreamAPI();
   $key = "your-key-here";
   $ds->Setup($key);
-  $uploads = $ds->List("1", "100");
+  $uploads = $ds->List("1", "100");  //Lists the first page of the recent uploads(100 per page as defined)
   print_r($uploads);
 ```
 Example of uploading a file using API can be found inside `example folder`
