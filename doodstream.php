@@ -224,7 +224,7 @@ class DoodstreamAPI {
 	} 
 
      /**
-	 * Get file splash, single or thumbnail image
+	 * Rename a File
 	 * @param (Required) file_code - File Code
 	 * @param (Required) name - New File Name
 	 */
