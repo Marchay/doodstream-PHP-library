@@ -70,7 +70,7 @@ $ds->RUploadList(); // No parameters required
 
 Get Remote Upload File Status
 ```php
-$ds->RUploadStatus($fld_id); // Parameters:- (Required) file_code - File code of the file in Remote Upload Queue
+$ds->RUploadStatus($file_code); // Parameters:- (Required) file_code - File code of the file in Remote Upload Queue
 ```
 
 Get total & used remote upload slots
