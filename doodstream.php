@@ -88,7 +88,7 @@ class DoodstreamAPI {
 	 * Remote Upload File Status
 	 * @param (Required) file_code - File code of the file in Remote Upload Queue
 	 */
-	public function RUploadStatus($fld_id = NULL) {	
+	public function RUploadStatus($fld_id) {	
 		$req = array(
 			'file_code' => $file_code
 		);
