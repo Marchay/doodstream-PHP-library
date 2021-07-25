@@ -47,13 +47,13 @@ class DoodstreamAPI {
 	public function Upload($tempfile, $type, $name) {
 		$upload = $this->api_call('upload', 'server', array());
 		$json  = json_decode($upload, true);
-        return $this->post_call($tempfile, $type, $name, $json["result"]);
+                return $this->post_call($tempfile, $type, $name, $json["result"]);
 	}
 
     /**
 	 * Copy / Clone your's or other's file
 	 * @param (Required) file_code - File code of the video you want to copy
-     * @param (Optional) fld_id - Folder ID to store inside
+         * @param (Optional) fld_id - Folder ID to store inside
 	 */
 	public function Copy($file_code, $fld_id = NULL) {	
 		$req = array(
@@ -66,7 +66,7 @@ class DoodstreamAPI {
     /**
 	 * Remote Upload an file using it's direct url (This functions adds the url to the Remote Upload queue of the account)
 	 * @param (Required) url - URL to remote upload
-     * @param (Optional) new_title - Set a custom video title
+         * @param (Optional) new_title - Set a custom video title
 	 */
 	public function RUpload($url, $new_title = NULL) {	
 		$req = array(
