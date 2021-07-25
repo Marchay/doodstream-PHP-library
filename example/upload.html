@@ -1,0 +1,18 @@
+<html>
+<head><title>Test Upload Template Doodstream API</title></head>
+<body>
+                 <form enctype="multipart/form-data" action="upload.php" id="form" method="post" align="center">
+                    <div>
+                        <label>Custom File Name: </label><br>
+                        <input type="text" placeholder="File Name" name="fname" minlength="3" required/>
+                    </div>
+                    <br><br>
+                    <div>
+                        <label>Select video: </label><br>
+                        <input type="file" name="file" accept="video/*" required/><br>
+                    </div>
+                    <br>
+                    <input name="submit" type="submit" value="Upload"/>
+                </form>
+</body>
+</html>
