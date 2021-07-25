@@ -264,7 +264,7 @@ class DoodstreamAPI {
 	    
 		// Generate the query string
 		$urldata = http_build_query($req, '', '&');
-	    $url = "https://doodapi.com/api/". $path ."/". $cmd ."?" . $urldata;
+	        $url = "https://doodapi.com/api/". $path ."/". $cmd ."?" . $urldata;
 		// cURL request
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -272,7 +272,7 @@ class DoodstreamAPI {
 	    
 		$data = curl_exec($ch);                
 		if ($data !== FALSE) {
-            return $data;
+                  return $data;
 		} else {
 			return array('error' => 'cURL error: '.curl_error($ch));
 		}
@@ -296,14 +296,14 @@ class DoodstreamAPI {
 		curl_setopt($ch, CURLOPT_POST, 1);
 	    
 	    $post = array(
-        'api_key' => "$key",
-        'file' => curl_file_create($tempfile, $type, $name)
-        );
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+             'api_key' => "$key",
+             'file' => curl_file_create($tempfile, $type, $name)
+            );
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
 		$data = curl_exec($ch);                
 		if ($data !== FALSE) {
-            return $data;
+                 return $data;
 		} else {
 			return array('error' => 'cURL error: '.curl_error($ch));
 		}
