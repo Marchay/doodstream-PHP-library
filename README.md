@@ -72,3 +72,78 @@ Get Remote Upload File Status
 ```
 RUploadStatus($fld_id); // Parameters:- (Required) file_code - File code of the file in Remote Upload Queue
 ```
+
+Get total & used remote upload slots
+```
+RUploadSlots(); // No parameters required
+```
+
+###### Remote Upload Actions
+
+Restart Errors In Remote Upload List/Queue
+```
+RestartErrors(); // No parameters required
+```
+
+Clear All Errors In Remote Upload List/Queue
+```
+ClearErrors(); // No parameters required
+```
+
+Clear All Pending Files In Remote Upload List/Queue
+```
+ClearAll(); // No parameters required
+```
+
+Remove a Specific File from Remote Upload List/Queue
+```
+DeleteCode($file_code); // Parameters:- (Required) file_code - File code to be removed from Remote Upload List/Queue
+```
+###### Manage Folders
+
+Create a folder
+```
+CreateFolder($name, $parent_id(Optional)); // Parameters:- 1)(Required) name - Name of the folder to be created
+                                                           2)(Optional) parent_id - Parent folder ID
+```
+
+Rename a folder
+```
+RenameFolder($fld_id, $name); // Parameters:- 1)(Required) fld_id - Folder ID
+	                                            2)(Required) name - New name of the folder
+```
+
+###### Manage Files
+
+Get List of Videos Uploaded with info
+```
+List($page, $per_page, $fld_id(Optional)); // Parameters:- 1)(Required) page - Pagination , page number from which results have to shown (1 for the most recent uploads; Ascending Order followed)
+	                                                         2)(Required) per_page - Max videos per page (Cannot be more than 200)
+	                                                         3)(Optional) fld_id - Show videos inside a specific folder 
+```
+
+Check status of an uploaded file
+```
+FileStatus($file_code); // Parameters:- 1)(Required) file_code - File Code
+```
+
+Get File Info
+```
+FileInfo($file_code); // Parameters:- 1)(Required) file_code - File Code
+```
+
+Get file splash, single or thumbnail image
+```
+FileImage($file_code); // Parameters:- 1)(Required) file_code - File Code
+```
+
+Rename a file
+```
+FileRename($file_code, $name); //Parameters:- 1)(Required) file_code - File Code
+                                              2)(Required) name - New File Name
+```
+
+Search your files
+```
+Search($search_term); // Parameters:- 1)(Required) search_term - Search term
+```
