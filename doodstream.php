@@ -311,9 +311,6 @@ class DoodstreamAPI {
 		return (!empty($this->api_key));
 	}
 	
-	private function is_setup() {
-		return (!empty($this->api_key));
-	}
 	
 	private function get_url($code, $protected = NULL) {
 	      if(strlen($code) == 12){
