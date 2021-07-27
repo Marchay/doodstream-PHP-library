@@ -255,15 +255,18 @@ class DoodstreamAPI {
 	 */
 	public function CustomEmbedImage($code, $imgurl, $protected = NULL) {	
                 $embed = $this->get_url($code, $protected);
-                if($embed !== 0){
+                if($embed !== 0 && $embed !== 2){
         	$param = "?c_poster=";
         	$url = $embed . $param . $imgurl;
         	$result =  json_encode(array('msg' => 'OK', 'status' => 200, 'url' => $url), JSON_UNESCAPED_SLASHES);
         	return $result;
-        }
-        else{
-           return json_encode(array('error' => 'Incorrect file code or url passed'));
-        }
+		}
+		elseif($embed == 2){
+		    return json_encode(array('error' => 'Not found or not your file'));
+		}
+                else{
+                    return json_encode(array('error' => 'Incorrect file code or url passed'));
+                }
 	} 
 
      /**
@@ -275,16 +278,19 @@ class DoodstreamAPI {
 	public function RemoteSubtitles($code, $c1_file, $c1_label) {	
 		$protected = NULL;
                 $embed = $this->get_url($code, $protected);
-                if($embed !== 0){
+                if($embed !== 0 && $embed !== 2){
         	$param1 = "?c1_file=";
         	$param2 = "&c1_label=";
         	$url = $embed . $param1 . $c1_file . $param2 . $c1_label;
         	$result =  json_encode(array('msg' => 'OK', 'status' => 200, 'url' => $url), JSON_UNESCAPED_SLASHES);
         	return $result;
-        }
-        else{
-           return json_encode(array('error' => 'Incorrect file code or url passed'));
-        }
+                }
+                elseif($embed == 2){
+		    return json_encode(array('error' => 'Not found or not your file'));
+		}
+                else{
+                    return json_encode(array('error' => 'Incorrect file code or url passed'));
+                }
 	} 
 
     /**
@@ -295,15 +301,18 @@ class DoodstreamAPI {
 	public function RemoteJSONSubtitles($code, $subtitle_json) {	
 		$protected = NULL;
                 $embed = $this->get_url($code, $protected);
-                if($embed !== 0){
+                if($embed !== 0 && $embed !== 2){
         	$param = "?subtitle_json=";
         	$url = $embed . $param . $subtitle_json;
         	$result =  json_encode(array('msg' => 'OK', 'status' => 200, 'url' => $url), JSON_UNESCAPED_SLASHES);
         	return $result;
-        }
-        else{
-           return json_encode(array('error' => 'Incorrect file code or url passed'));
-        }
+                }
+		elseif($embed == 2){
+		    return json_encode(array('error' => 'Not found or not your file'));
+		}
+                else{
+                    return json_encode(array('error' => 'Incorrect file code or url passed'));
+                }
 	} 
 	
 
@@ -323,7 +332,7 @@ class DoodstreamAPI {
               	     return $url;
                   }
                   else{
-                  	 $error = 0;
+                  	 $error = 2;
               	     return $error;
                   }
               }
@@ -348,7 +357,7 @@ class DoodstreamAPI {
                         	   return $url;
                         	}
                         	else {
-                        		$error = 0;
+                        		$error = 2;
                         		return $error;
                         	}
                         }
