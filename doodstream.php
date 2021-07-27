@@ -311,25 +311,30 @@ class DoodstreamAPI {
 		return (!empty($this->api_key));
 	}
 	
+	private function is_setup() {
+		return (!empty($this->api_key));
+	}
+	
 	private function get_url($code, $protected = NULL) {
-		if(strlen($code) == 12){
-              $json = $this->api_call('file', 'info',$req = array('file_code' => $code));
-              $result = json_decode($json, true);
-              $baseurl = "https://dood.la";
-              if($result["status"] !== 200){
-              	$error = 0;
-              	return $error;
+	      if(strlen($code) == 12){
+                  $baseurl = "https://dood.la";
+              if($protected == 1){
+              	$json = $this->api_call('file', 'info',$req = array('file_code' => $code));
+                $result = json_decode($json, true);
+                if($result["result"][0]["status"] !== "Not found or not your file"){
+                     $url = $baseurl . $result["result"][0]["protected_embed"];
+              	     return $url;
+                  }
+                  else{
+                  	 $error = 0;
+              	     return $error;
+                  }
               }
               else{
-              	if($protected == 1){
-              	$url = $baseurl . $result["result"][0]["protected_embed"];
-              	return $url;
-              }
-              else{
-                $url = $baseurl . "/e/" . $code;
+
+              	$url = $baseurl . "/e/" . $code;
                 return $url;
-               }
-            }
+              }
 		}
 		else{
               if(filter_var($code, FILTER_VALIDATE_URL)){
@@ -338,20 +343,20 @@ class DoodstreamAPI {
                  if(in_array($parse["host"], $domains)){
                     if(strlen($parse["path"]) == 15){
                     	$file_code = substr($parse["path"], 3);
-                    	$json = $this->api_call('file', 'info',$req = array('file_code' => $file_code));
-                        $result = json_decode($json, true);
-                        if($result["status"] == 200){
-                        	if($protected !== 1){
-                            return $code;
+                        if($protected == 1){
+                        	$json = $this->api_call('file', 'info',$req = array('file_code' => $file_code));
+                            $result = json_decode($json, true);
+                        	if($result["result"][0]["status"] !== "Not found or not your file"){
+                               $url = $parse["host"] . $result["result"][0]["protected_embed"];
+                        	   return $url;
+                        	}
+                        	else {
+                        		$error = 0;
+                        		return $error;
+                        	}
                         }
                         else{
-                        	$url = $parse["host"] . $result["result"][0]["protected_embed"];
-                        	return $url;
-                            }
-                        }
-                        else{
-                        	$error = 0;
-                        	return $error;
+                        	return $code;
                         }
                     }
                 else{
