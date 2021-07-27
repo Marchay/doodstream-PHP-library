@@ -288,7 +288,7 @@ class DoodstreamAPI {
 	} 
 
     /**
-	 * Use remote subitles(custom subtitles) for a embed link
+	 * Use remote JSON subitles(custom subtitles) for a embed link (Load multiple subtitles via URL in JSON format)
 	 * @param (Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
 	 * @param (Required) subtitle_json - Multiple subtitle in JSON format  (Look at https://doodstream.com/api-docs#remote-subtitle-json for example)
 	 */
