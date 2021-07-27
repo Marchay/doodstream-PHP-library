@@ -154,19 +154,19 @@ $ds->Search($search_term); // Parameters:- 1)(Required) search_term - Search ter
 Remote Splash/Single Image (Functions returns embed link with added parameters)
 ```php
 $ds->CustomEmbedImage($code, $imgurl, $protected(Optional)); // Parameters:- 1)(Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
-                                                           //                2)(Required) imgurl - URL of the image you want to set as the splash/single image
-							  //                 3)(Optional) protected - Return protected embed url if set this parameter to 1, defaults to Null/Static URL if not set. 
+                                                            //                2)(Required) imgurl - URL of the image you want to set as the splash/single image
+							   //                 3)(Optional) protected - Return protected embed url if set this parameter to 1, defaults to Null/Static URL if not set. 
 ```
 
 Remote subitles (custom subtitles; Functions returns embed link with added parameters)
 ```php
 $ds->RemoteSubtitles($code, $c1_file, $c1_label); // Parameters:- 1)(Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
-                                                //                2)(Required) c1_file - Subtitle URL (srt or vtt)
-					       //                 3)(Required) c1_label - Subtitle language or any lable
+                                                 //                2)(Required) c1_file - Subtitle URL (srt or vtt)
+					        //                 3)(Required) c1_label - Subtitle language or any lable
 ```
 
 Remote subtitle JSON (Load multiple subtitles via URL in JSON format; Functions returns embed link with added parameters)
 ```php
 $ds->RemoteJSONSubtitles($code, $subtitle_json); // Parameters:- 1)(Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
-                                               //                2)(Required) subtitle_json - Multiple subtitle in JSON format  (Look at https://doodstream.com/api-docs#remote-subtitle-json for example)
+                                                //                2)(Required) subtitle_json - Multiple subtitle in JSON format  (Look at https://doodstream.com/api-docs#remote-subtitle-json for example)
 ```
