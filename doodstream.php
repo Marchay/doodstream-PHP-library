@@ -247,11 +247,129 @@ class DoodstreamAPI {
 		return $this->api_call('search', 'videos', $req);
 	} 
 
+    /**
+	 * Use a custom image for an file's embed link, returns the full embed link
+	 * @param (Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
+	 * @param (Required) imgurl - URL of the image you want to set as the splash/single image
+	 * @param (Optional) protected - Return protected embed url if set this parameter to 1, defaults to Null/Static URL if not set. 
+	 */
+	public function CustomEmbedImage($code, $imgurl, $protected = NULL) {	
+                $embed = $this->get_url($code, $protected);
+        if($embed !== 0){
+        	$param = "?c_poster=";
+        	$url = $embed . $param . $imgurl;
+        	$result =  json_encode(array('msg' => 'OK', 'status' => 200, 'url' => $url), JSON_UNESCAPED_SLASHES);
+        	return $result;
+        }
+        else{
+           return json_encode(array('error' => 'Incorrect file code or url passed'));
+        }
+	} 
+
+     /**
+	 * Use remote subitles(custom subtitles) for a embed link
+	 * @param (Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
+	 * @param (Required) c1_file - Subtitle URL (srt or vtt)
+	 * @param (Required) c1_label - Subtitle language or any lable
+	 */
+	public function RemoteSubtitles($code, $c1_file, $c1_label) {	
+		$protected = NULL;
+                $embed = $this->get_url($code, $protected);
+        if($embed !== 0){
+        	$param1 = "?c1_file=";
+        	$param2 = "&c1_label=";
+        	$url = $embed . $param1 . $c1_file . $param2 . $c1_label;
+        	$result =  json_encode(array('msg' => 'OK', 'status' => 200, 'url' => $url), JSON_UNESCAPED_SLASHES);
+        	return $result;
+        }
+        else{
+           return json_encode(array('error' => 'Incorrect file code or url passed'));
+        }
+	} 
+
+    /**
+	 * Use remote subitles(custom subtitles) for a embed link
+	 * @param (Required) code/url - File code of the video OR insert an embed url of the video in the parameter(If using a url, make sure it includes https://, do not pass protected embed link)
+	 * @param (Required) subtitle_json - Multiple subtitle in JSON format  (Look at https://doodstream.com/api-docs#remote-subtitle-json for example)
+	 */
+	public function RemoteJSONSubtitles($code, $subtitle_json) {	
+		$protected = NULL;
+                $embed = $this->get_url($code, $protected);
+        if($embed !== 0){
+        	$param = "?subtitle_json=";
+        	$url = $embed . $param . $subtitle_json;
+        	$result =  json_encode(array('msg' => 'OK', 'status' => 200, 'url' => $url), JSON_UNESCAPED_SLASHES);
+        	return $result;
+        }
+        else{
+           return json_encode(array('error' => 'Incorrect file code or url passed'));
+        }
+	} 
+	
 
 	private function is_setup() {
 		return (!empty($this->api_key));
 	}
 	
+	private function get_url($code, $protected = NULL) {
+		if(strlen($code) == 12){
+              $json = $this->api_call('file', 'info',$req = array('file_code' => $code));
+              $result = json_decode($json, true);
+              $baseurl = "https://dood.la";
+              if($result["status"] !== 200){
+              	$error = 0;
+              	return $error;
+              }
+              else{
+              	if($protected == 1){
+              	$url = $baseurl . $result["result"][0]["protected_embed"];
+              	return $url;
+              }
+              else{
+                $url = $baseurl . "/e/" . $code;
+                return $url;
+               }
+            }
+		}
+		else{
+              if(filter_var($code, FILTER_VALIDATE_URL)){
+                 $domains = array('www.doodstream.com', 'www.dood.la', 'www.dood.so', 'doodstream.com', 'dood.la', 'dood.so');
+                 $parse = parse_url($code);
+                 if(in_array($parse["host"], $domains)){
+                    if(strlen($parse["path"]) == 15){
+                    	$file_code = substr($parse["path"], 3);
+                    	$json = $this->api_call('file', 'info',$req = array('file_code' => $file_code));
+                        $result = json_decode($json, true);
+                        if($result["status"] == 200){
+                        	if($protected !== 1){
+                            return $code;
+                        }
+                        else{
+                        	$url = $parse["host"] . $result["result"][0]["protected_embed"];
+                        	return $url;
+                            }
+                        }
+                        else{
+                        	$error = 0;
+                        	return $error;
+                        }
+                    }
+                else{
+                	$error = 0;
+                	return $error;
+                }
+                 }
+                 else{
+                 	$error = 0;
+                 	return $error;
+                 }
+              }
+              else{
+                 $error = 0;
+                 return $error;
+              }
+		}
+	}
 
 	//GET methods call
 
@@ -281,7 +399,7 @@ class DoodstreamAPI {
 		$req = null;
 	}
 
-    //Post call for file uploading
+        //Post call for file uploading
 
 	private function post_call($tempfile, $type, $name, $uploadurl) {
 		if (!$this->is_setup()) {
