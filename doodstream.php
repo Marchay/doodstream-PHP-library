@@ -342,9 +342,9 @@ class DoodstreamAPI {
                     	$file_code = substr($parse["path"], 3);
                         if($protected == 1){
                         	$json = $this->api_call('file', 'info',$req = array('file_code' => $file_code));
-                            $result = json_decode($json, true);
+                                $result = json_decode($json, true);
                         	if($result["result"][0]["status"] !== "Not found or not your file"){
-                               $url = $parse["host"] . $result["result"][0]["protected_embed"];
+                                $url = "https://" . $parse["host"] . $result["result"][0]["protected_embed"];
                         	   return $url;
                         	}
                         	else {
