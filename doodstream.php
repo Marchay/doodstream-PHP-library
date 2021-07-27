@@ -323,10 +323,10 @@ class DoodstreamAPI {
 	
 	private function get_url($code, $protected = NULL) {
 	      if(strlen($code) == 12){
-                  $baseurl = "https://dood.la";
+              $baseurl = "https://dood.la";
+              $json = $this->api_call('file', 'info',$req = array('file_code' => $code));
+              $result = json_decode($json, true);
               if($protected == 1){
-              	$json = $this->api_call('file', 'info',$req = array('file_code' => $code));
-                $result = json_decode($json, true);
                 if($result["result"][0]["status"] !== "Not found or not your file"){
                      $url = $baseurl . $result["result"][0]["protected_embed"];
               	     return $url;
@@ -337,9 +337,14 @@ class DoodstreamAPI {
                   }
               }
               else{
-
+              	if($result["result"][0]["status"] !== "Not found or not your file"){
               	$url = $baseurl . "/e/" . $code;
                 return $url;
+                }
+                else{
+                  	 $error = 2;
+              	     return $error;
+                  }
               }
 		}
 		else{
