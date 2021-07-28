@@ -322,6 +322,10 @@ class DoodstreamAPI {
 	
 	
 	private function get_url($code, $protected = NULL) {
+		if (!$this->is_setup()) {
+			return array('error' => 'You have not called the Setup function with your api key!');
+		}
+		
 	      if(strlen($code) == 12){
               $baseurl = "https://dood.la";
               $json = $this->api_call('file', 'info',$req = array('file_code' => $code));
