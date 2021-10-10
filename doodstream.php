@@ -353,7 +353,7 @@ class DoodstreamAPI {
 		}
 		else{
               if(filter_var($code, FILTER_VALIDATE_URL)){
-                 $domains = array('www.doodstream.com', 'www.dood.la', 'www.dood.so', 'doodstream.com', 'dood.la', 'dood.so');
+                 $domains = array('www.doodstream.com', 'www.dood.la', 'www.dood.so', 'www.dood.ws', 'doodstream.com', 'dood.la', 'dood.so', 'dood.ws');
                  $parse = parse_url($code);
                  if(in_array($parse["host"], $domains)){
                     if(strlen($parse["path"]) == 15){
