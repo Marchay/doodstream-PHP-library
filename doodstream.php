@@ -327,7 +327,7 @@ class DoodstreamAPI {
 		}
 		
 	      if(strlen($code) == 12){
-              $baseurl = "https://dood.la";
+              $baseurl = "https://dood.pm";
               $json = $this->api_call('file', 'info',$req = array('file_code' => $code));
               $result = json_decode($json, true);
               if($protected == 1){
